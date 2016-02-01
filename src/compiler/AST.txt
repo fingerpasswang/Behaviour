@@ -1,0 +1,64 @@
+Right [DeclaresDec [
+DeclareDec (VarPat "seq") (AppType [GenericType "List" (GenericType "IO" (NormalType "Result")),GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "select") (AppType [GenericType "List" (GenericType "IO" (NormalType "Result")),GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "race") (AppType [GenericType "List" (GenericType "IO" (NormalType "Result")),GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "wait") (AppType [GenericType "IO" (NormalType "Result"),GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "check") (AppType [NormalType "Bool",GenericType "IO" (NormalType "Re
+sult")])
+,DeclareDec (VarPat "loop") (AppType [GenericType "IO" (NormalType "Result"),GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "par") (AppType [GenericType "List" (GenericType "IO" (NormalType "Result")),GenericType "IO" (NormalType "Result")])]]
+
+Right [DeclaresDec [
+ DeclareDec (VarPat "HpRateLessThan") (AppType [NormalType "Float",GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "GetFleeBloodRate") (NormalType "Float")
+,DeclareDec (VarPat "CanMove") (GenericType "IO" (NormalType "Result"))
+,DeclareDec (VarPat "Flee") (GenericType "IO" (NormalType "Result"))
+,DeclareDec (VarPat "Speak") (GenericType "IO" (NormalType "Result"))
+,DeclareDec (VarPat "IsFleeing") (NormalType "Bool")
+,DeclareDec (VarPat "IsNull") (AppType [NormalType "Object",NormalType "Bool"])
+,DeclareDec (VarPat "GetNearestTarget") (NormalType "Object")
+,DeclareDec (VarPat "IsAttacking") (NormalType "Bool")
+,DeclareDec (VarPat "IsNormal") (NormalType "Bool")
+,DeclareDec (VarPat "LockTarget") (AppType [NormalType "Object",GenericType "IO" (NormalType "Result")])
+,DeclareDec (VarPat "ReachCurrentPatrolPoint") (NormalType "Bool")
+,DeclareDec (VarPat "MoveToNextPatrolPoiont") (GenericType "IO" (NormalType "Result"))
+,DeclareDec (VarPat "Idle") (GenericType "IO" (NormalType "Result"))]]
+
+Right [
+ ImportDec "Prelude"
+,ImportDec "BaseAI"
+,DefineDec (VarPat "Root") (AppExp (VarExp "par") (ADTExp "Cons" [
+	 AppExp (VarExp "seq") (ADTExp "Cons" [
+		 AppExp (VarExp "check") (VarExp "IsFleeing")
+		,ADTExp "Cons" [
+			 AppExp (LambdaExp (VarPat "a")(AppExp (VarExp "check") (AppExp (VarExp "IsNull") (VarExp "a")))) (VarExp "GetNearestTarget")
+			,ConstExp NilVal]])
+	,ADTExp "Cons" [
+		 AppExp (VarExp "seq") (ADTExp "Cons" [
+			 AppExp (VarExp "check") (VarExp "IsAttacking")
+			,ADTExp "Cons" [
+				 AppExp (LambdaExp (VarPat "b") (AppExp (VarExp "HpRateLessThan") (VarExp "b"))) (VarExp "GetFleeBloodRate")
+				,ConstExp NilVal]])
+		,ADTExp "Cons" [
+			 AppExp (VarExp "seq") (ADTExp "Cons" [
+				 AppExp (VarExp "check") (VarExp "IsNormal")
+				,ADTExp "Cons" [
+					 AppExp (VarExp "loop") (AppExp (VarExp "par") (ADTExp "Cons" [
+						 AppExp (LambdaExp (VarPat "c") (AppExp (VarExp "seq") (ADTExp "Cons" [
+							 AppExp (VarExp "check") (AppExp (VarExp"IsNull") (VarExp "c"))
+							,ADTExp "Cons" [
+								 AppExp (VarExp "LockTarget") (VarExp "c")
+								,ConstExp NilVal]]))) (VarExp "GetNearestTarget")
+						,ADTExp "Cons" [
+							 AppExp (VarExp"seq") (ADTExp "Cons" [
+								 AppExp (VarExp "seq") (ADTExp "Cons" [
+									 AppExp (VarExp "check") (VarExp "ReachCurrentPatrolPoint")
+									,ADTExp "Cons" [
+										 VarExp "MoveToNextPatrolPoiont"
+										,ConstExp NilVal]])
+								,ADTExp "Cons" [
+									 VarExp "Idle"
+									,ConstExp NilVal]])
+							,ConstExp NilVal]]))
+					,ConstExp NilVal]])
+			,ConstExp NilVal]]]))]

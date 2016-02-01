@@ -1,0 +1,8 @@
+(declare 
+	(seq :: (List IO Result -> IO Result))
+	(select :: (List IO Result -> IO Result))
+	(race :: (List IO Result -> IO Result))
+	(wait :: (IO Result -> IO Result))
+	(check :: (Bool -> IO Result))
+	(loop :: (IO Result -> IO Result))
+	(par :: (List IO Result -> IO Result)))

@@ -1,0 +1,316 @@
+public static IO<Result> Root = 
+	Prelude.par(Help.MakeList(
+		 Prelude.seq(Help.MakeList(
+			 Prelude.check(BaseAI.IsFleeing)
+			,(((Box<Object> a) => Help.With(a, BaseAI.GetNearestTarget, Prelude.check(BaseAI.IsNull())))(new Box<Object>()))))
+		,Prelude.seq(Help.MakeList(
+			 Prelude.check(BaseAI.IsAttacking)
+			,(((Box<Float> b) => Help.With(b, BaseAI.GetFleeBloodRate, BaseAI.HpRateLessThan()))(new Box<Float>()))))
+		,Prelude.seq(Help.MakeList(
+			 Prelude.check(BaseAI.IsNormal)
+			,Prelude.loop(Prelude.par(Help.MakeList(
+				 (((Box<Object> c) => Help.With(c, BaseAI.GetNearestTarget, Prelude.seq(Help.MakeList(
+					 Prelude.check(BaseAI.IsNull())
+					,BaseAI.LockTarget()))))(new Box<Object>()))
+				,Prelude.seq(Help.MakeList(
+					 Prelude.seq(Help.MakeList(
+						 Prelude.check(BaseAI.ReachCurrentPatrolPoint)
+						,BaseAI.MoveToNextPatrolPoiont))
+					,BaseAI.Idle)))))))))
+		
+	
+__signal<__IO<__Result>> Root = 
+	__help.apply(Prelude<T>.seq_,
+		__help.MA(
+			__help.apply(Prelude<T>.wait_, 
+				__help.apply(Prelude<T>.seq_,
+					((Func<__signal<__IO<__Result>>>)(() =>
+                                {
+                                    var a = new SGBox<float>();
+                                    return __With<float, __Result>.with(a, __help.apply(BaseAISets<T>.GetFleeBloodRate), __help.apply(Prelude<T>.check, __help.apply(BaseAISets<T>.HpRateLessThan, a)));
+                                }))()
+				   ,__help.apply(BaseAISets<T>.CanMove)))
+		   ,__help.apply(BaseAISets<T>.Flee)
+		   ,__help.apply(BaseAISets<T>.Speak)));
+					
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using SandglassCore;
+namespace AI {
+    public class AI71000001 < T > where T: IEnemyAI {
+        public static readonly __signal < __IO < __Result >> Root = __help.apply(Prelude < T > .usePolicy_par_, Prelude < T > .justSuccess, __help.MA(__help.apply(Prelude < T > .seq_, __help.MA(__help.apply(Prelude < T > .wait_, __help.apply(Prelude < T > .seq_, __help.MA(((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < double > __prefixOf__sandglassVariable38withprefixluanxieyitongsdsd1398 = new SGBox < double > ();
+            return __With < double, __Result > .with(__prefixOf__sandglassVariable38withprefixluanxieyitongsdsd1398, __help.apply(EnemyAISets < T > .GetFleeBloodRate), __help.apply(EnemyAISets < T > .HpRateLessThan, __prefixOf__sandglassVariable38withprefixluanxieyitongsdsd1398));
+        }))(), __help.apply(EnemyAISets < T > .CanMove)))), __help.apply(EnemyAISets < T > .Flee))), __help.apply(Prelude < T > .forever_, __help.apply(Prelude < T > .usePolicy_par_, Prelude < T > .justSuccess, __help.MA(__help.apply(EnemyAISets < T > .AutoLockTarget), __help.apply(Prelude < T > .behaviorIf_p1_p2_, __help.apply(EnemyAISets < T > .HadLockTarget), __help.apply(Prelude < T > .seq_, __help.MA(__help.apply(EnemyAISets < T > .CanMove), __help.apply(Prelude < T > .select_, __help.MA(__help.apply(Prelude < T > .seq_, __help.MA(((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable39withprefixluanxieyitongsdsd1399 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable39withprefixluanxieyitongsdsd1399, __help.apply(EnemyAISets < T > .GetBornPos), ((Func < __signal < __IO < __Result >>> )(() => {
+                SGBox < object > __prefixOf__sandglassVariable40withprefixluanxieyitongsdsd1400 = new SGBox < object > ();
+                return __With < object, __Result > .with(__prefixOf__sandglassVariable40withprefixluanxieyitongsdsd1400, __help.apply(EnemyAISets < T > .GetPos), ((Func < __signal < __IO < __Result >>> )(() => {
+                    SGBox < double > __prefixOf__sandglassVariable41withprefixluanxieyitongsdsd1401 = new SGBox < double > ();
+                    return __With < double, __Result > .with(__prefixOf__sandglassVariable41withprefixluanxieyitongsdsd1401, __help.apply(EnemyAISets < T > .GetDistance, __prefixOf__sandglassVariable39withprefixluanxieyitongsdsd1399, __prefixOf__sandglassVariable40withprefixluanxieyitongsdsd1400), ((Func < __signal < __IO < __Result >>> )(() => {
+                        SGBox < double > __prefixOf__sandglassVariable42withprefixluanxieyitongsdsd1402 = new SGBox < double > ();
+                        return __With < double, __Result > .with(__prefixOf__sandglassVariable42withprefixluanxieyitongsdsd1402, __help.apply(EnemyAISets < T > .GetPursueRadius), __help.apply(Prelude < T > .check, __help.apply(SMath < T > .greaterthanorequalto, __prefixOf__sandglassVariable41withprefixluanxieyitongsdsd1401, __prefixOf__sandglassVariable42withprefixluanxieyitongsdsd1402)));
+                    }))());
+                }))());
+            }))());
+        }))(), __help.apply(EnemyAISets < T > .GoHome))), __help.apply(Prelude < T > .seq_, __help.MA(((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable43withprefixluanxieyitongsdsd1403 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable43withprefixluanxieyitongsdsd1403, __help.apply(EnemyAISets < T > .GetLockTarget), ((Func < __signal < __IO < __Result >>> )(() => {
+                SGBox < double > __prefixOf__sandglassVariable44withprefixluanxieyitongsdsd1404 = new SGBox < double > ();
+                return __With < double, __Result > .with(__prefixOf__sandglassVariable44withprefixluanxieyitongsdsd1404, __help.apply(EnemyAISets < T > .GetTargetDistance, __prefixOf__sandglassVariable43withprefixluanxieyitongsdsd1403), ((Func < __signal < __IO < __Result >>> )(() => {
+                    SGBox < double > __prefixOf__sandglassVariable45withprefixluanxieyitongsdsd1405 = new SGBox < double > ();
+                    return __With < double, __Result > .with(__prefixOf__sandglassVariable45withprefixluanxieyitongsdsd1405, __help.apply(EnemyAISets < T > .GetDefenceDis), __help.apply(Prelude < T > .check, __help.apply(SMath < T > .lessthan, __prefixOf__sandglassVariable44withprefixluanxieyitongsdsd1404, __prefixOf__sandglassVariable45withprefixluanxieyitongsdsd1405)));
+                }))());
+            }))());
+        }))(), ((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < double > __prefixOf__sandglassVariable46withprefixluanxieyitongsdsd1406 = new SGBox < double > ();
+            return __With < double, __Result > .with(__prefixOf__sandglassVariable46withprefixluanxieyitongsdsd1406, __help.apply(Prelude < T > .random, __help.MPS(1d)), __help.apply(Prelude < T > .check, __help.apply(SMath < T > .lessthan, __prefixOf__sandglassVariable46withprefixluanxieyitongsdsd1406, __help.MPS(0.2d))));
+        }))(), ((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable47withprefixluanxieyitongsdsd1407 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable47withprefixluanxieyitongsdsd1407, __help.apply(EnemyAISets < T > .GetLockTarget), __help.apply(EnemyAISets < T > .MoveToAround, __prefixOf__sandglassVariable47withprefixluanxieyitongsdsd1407));
+        }))())), __help.apply(Prelude < T > .seq_, __help.MA(((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < double > __prefixOf__sandglassVariable48withprefixluanxieyitongsdsd1408 = new SGBox < double > ();
+            return __With < double, __Result > .with(__prefixOf__sandglassVariable48withprefixluanxieyitongsdsd1408, __help.apply(EnemyAISets < T > .GetBodySize), ((Func < __signal < __IO < __Result >>> )(() => {
+                SGBox < double > __prefixOf__sandglassVariable49enemyNum = new SGBox < double > ();
+                return __With < double, __Result > .with(__prefixOf__sandglassVariable49enemyNum, __help.apply(EnemyAISets < T > .GetEnemyNum, __help.apply(SMath < T > .product, __prefixOf__sandglassVariable48withprefixluanxieyitongsdsd1408, __help.MPS(2d))), __help.apply(Prelude < T > .seq_, __help.MA(__help.apply(Prelude < T > .check, __help.apply(SMath < T > .greaterthanorequalto, __prefixOf__sandglassVariable49enemyNum, __help.MPS(2d))), ((Func < __signal < __IO < __Result >>> )(() => {
+                    SGBox < double > __prefixOf__sandglassVariable50withprefixluanxieyitongsdsd1409 = new SGBox < double > ();
+                    return __With < double, __Result > .with(__prefixOf__sandglassVariable50withprefixluanxieyitongsdsd1409, __help.apply(Prelude < T > .random, __help.MPS(1d)), __help.apply(Prelude < T > .check, __help.apply(SMath < T > .lessthan, __prefixOf__sandglassVariable50withprefixluanxieyitongsdsd1409, __help.MPS(0.5d))));
+                }))(), ((Func < __signal < __IO < __Result >>> )(() => {
+                    SGBox < object > __prefixOf__sandglassVariable51withprefixluanxieyitongsdsd1410 = new SGBox < object > ();
+                    return __With < object, __Result > .with(__prefixOf__sandglassVariable51withprefixluanxieyitongsdsd1410, __help.apply(EnemyAISets < T > .GetLockTarget), __help.apply(EnemyAISets < T > .MoveToAround, __prefixOf__sandglassVariable51withprefixluanxieyitongsdsd1410));
+                }))())));
+            }))());
+        }))())), __help.apply(Prelude < T > .seq_, __help.MA(__help.apply(Prelude < T > .negate_, ((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable52withprefixluanxieyitongsdsd1411 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable52withprefixluanxieyitongsdsd1411, __help.apply(EnemyAISets < T > .GetLockTarget), __help.apply(EnemyAISets < T > .IsInAttackRange, __prefixOf__sandglassVariable52withprefixluanxieyitongsdsd1411));
+        }))()), ((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable53withprefixluanxieyitongsdsd1412 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable53withprefixluanxieyitongsdsd1412, __help.apply(EnemyAISets < T > .GetLockTarget), __help.apply(EnemyAISets < T > .MoveToAround, __prefixOf__sandglassVariable53withprefixluanxieyitongsdsd1412));
+        }))())), __help.apply(Prelude < T > .seq_, __help.MA(__help.apply(EnemyAISets < T > .CanUseDefaultSkill), ((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable54withprefixluanxieyitongsdsd1413 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable54withprefixluanxieyitongsdsd1413, __help.apply(EnemyAISets < T > .GetLockTarget), __help.apply(EnemyAISets < T > .FaceTo, __prefixOf__sandglassVariable54withprefixluanxieyitongsdsd1413));
+        }))(), __help.apply(EnemyAISets < T > .RandomUseDefaultSkill))), __help.apply(Prelude < T > .seq_, __help.MA(((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < double > __prefixOf__sandglassVariable55withprefixluanxieyitongsdsd1414 = new SGBox < double > ();
+            return __With < double, __Result > .with(__prefixOf__sandglassVariable55withprefixluanxieyitongsdsd1414, __help.apply(Prelude < T > .random, __help.MPS(1d)), __help.apply(Prelude < T > .check, __help.apply(SMath < T > .lessthan, __prefixOf__sandglassVariable55withprefixluanxieyitongsdsd1414, __help.MPS(0.05d))));
+        }))(), ((Func < __signal < __IO < __Result >>> )(() => {
+            SGBox < object > __prefixOf__sandglassVariable56withprefixluanxieyitongsdsd1415 = new SGBox < object > ();
+            return __With < object, __Result > .with(__prefixOf__sandglassVariable56withprefixluanxieyitongsdsd1415, __help.apply(EnemyAISets < T > .GetLockTarget), __help.apply(EnemyAISets < T > .MoveToAround, __prefixOf__sandglassVariable56withprefixluanxieyitongsdsd1415));
+        }))())))))), __help.apply(Prelude < T > .seq_, __help.MA(__help.apply(EnemyAISets < T > .IsIdle), __help.apply(EnemyAISets < T > .Patrol)))))))));
+    }
+}
+					
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using SandglassCore;
+namespace AI {
+    class AI71000001 < T > : Prelude where T: IEnemyAI {
+        private static BaseNodeInterface tree = null;
+        static AI71000001() {
+            tree = usePolicy_par_(justSuccess, seq_(wait_(seq_(new With < double > ("withprefixluanxieyitongsdsd1000", ((ConstContext _context, out double _with_p) => {
+                return ((T) _context.HostObject).GetFleeBloodRate(_context, out _with_p);
+            }), new BehaviorNode_HpRateLessThan < T > ((_GetValueByPara < double > ("withprefixluanxieyitongsdsd1000")))), new BehaviorNode_CanMove < T > ())), new BehaviorNode_Flee < T > ()), forever_(usePolicy_par_(justSuccess, new BehaviorNode_AutoLockTarget < T > (), behaviorIf_p1_p2_(new BehaviorNode_HadLockTarget < T > (), seq_(new BehaviorNode_CanMove < T > (), select_(seq_(new With < Object > ("withprefixluanxieyitongsdsd1001", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new With < double > ("withprefixluanxieyitongsdsd1002", ((ConstContext _context, out double _with_p) => {
+                return ((T) _context.HostObject).GetDistance(_context, _Bind((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1001")), _context), out _with_p);
+            }), new With < double > ("withprefixluanxieyitongsdsd1003", ((ConstContext _context, out double _with_p) => {
+                return ((T) _context.HostObject).GetDefenceDis(_context, out _with_p);
+            }), check(_lessthan((_GetValueByPara < double > ("withprefixluanxieyitongsdsd1002")), (_GetValueByPara < double > ("withprefixluanxieyitongsdsd1003"))))))), new With < double > ("withprefixluanxieyitongsdsd1004", ((ConstContext _context, out double _with_p) => {
+                return random(_context, _Bind((_Wrap(1)), _context), out _with_p);
+            }), check(_lessthan((_GetValueByPara < double > ("withprefixluanxieyitongsdsd1004")), (_Wrap(0.5))))), new With < Object > ("withprefixluanxieyitongsdsd1005", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new BehaviorNode_MoveToAround < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1005"))))), seq_(new With < double > ("withprefixluanxieyitongsdsd1006", ((ConstContext _context, out double _with_p) => {
+                return ((T) _context.HostObject).GetBodySize(_context, out _with_p);
+            }), new With < double > ("enemyNum", ((ConstContext _context, out double _with_p) => {
+                return ((T) _context.HostObject).GetEnemyNum(_context, _Bind(_product((_GetValueByPara < double > ("withprefixluanxieyitongsdsd1006")), (_Wrap(2))), _context), out _with_p);
+            }), seq_(check(_greaterthanorequalto((_GetValueByPara < double > ("enemyNum")), (_Wrap(2)))), new With < double > ("withprefixluanxieyitongsdsd1007", ((ConstContext _context, out double _with_p) => {
+                return random(_context, _Bind((_Wrap(1)), _context), out _with_p);
+            }), check(_lessthan((_GetValueByPara < double > ("withprefixluanxieyitongsdsd1007")), (_Wrap(0.5))))), new With < Object > ("withprefixluanxieyitongsdsd1008", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new BehaviorNode_MoveToAround < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1008")))))))), seq_(negate_(new With < Object > ("withprefixluanxieyitongsdsd1009", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new BehaviorNode_IsInAttackRange < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1009"))))), new With < Object > ("withprefixluanxieyitongsdsd1010", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new BehaviorNode_MoveToAround < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1010"))))), seq_(new BehaviorNode_CanUseDefaultSkill < T > (), new With < Object > ("withprefixluanxieyitongsdsd1011", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new BehaviorNode_FaceTo < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1011")))), new BehaviorNode_RandomUseDefaultSkill < T > ()), seq_(new With < double > ("withprefixluanxieyitongsdsd1012", ((ConstContext _context, out double _with_p) => {
+                return random(_context, _Bind((_Wrap(1)), _context), out _with_p);
+            }), check(_lessthan((_GetValueByPara < double > ("withprefixluanxieyitongsdsd1012")), (_Wrap(0.05))))), new With < Object > ("withprefixluanxieyitongsdsd1013", ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);
+            }), new BehaviorNode_MoveToAround < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1013"))))))), seq_(new BehaviorNode_IsIdle < T > (), new BehaviorNode_Patrol < T > ())))));
+        }
+        public static BaseNodeInterface getTree() {
+            return tree;
+        }
+    }
+}
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using SandglassCore;
+namespace AI {
+    class Boss < T > : Prelude where T: IEnemyAI {
+        private static BaseNodeInterface tree = null;
+        static Boss() {
+            tree = usePolicy_par_(justSuccess, forever_(new BehaviorNode_AutoLockTarget < T > ()), forever_(seq_(new BehaviorNode_HadLockTarget < T > (), new BehaviorNode_IsIdle < T > (), negate_(new BehaviorNode_IsNoBeAttack < T > ()), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1019 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1019);
+                }, () => {
+                    return ((Func < BaseNodeInterface > )(() => {
+                        double withprefixluanxieyitongsdsd1020 = 0d;
+                        return new With((ConstContext context) => {
+                            return ((T) context.HostObject).GetAngleYToTarget(context, withprefixluanxieyitongsdsd1019, out withprefixluanxieyitongsdsd1020);
+                        }, () => {
+                            return new BehaviorNode_SmoothFaceTo < T > (withprefixluanxieyitongsdsd1020, (15));
+                        });
+                    }))();
+                });
+            }))())), seq_(negate_(new BehaviorNode_HpRateLessThan < T > ((0.8))), new BehaviorNode_HpRateLessThanOrEqual < T > ((1)), when_forever_(seq_(negate_(new BehaviorNode_HpRateLessThan < T > ((0.8))), new BehaviorNode_HpRateLessThanOrEqual < T > ((1))), seq_(new BehaviorNode_HadLockTarget < T > (), behaviorIf_p1_p2_(((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1021 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1021);
+                }, () => {
+                    return ((Func < BaseNodeInterface > )(() => {
+                        double withprefixluanxieyitongsdsd1022 = 0d;
+                        return new With((ConstContext context) => {
+                            return ((T) context.HostObject).GetDistance(context, withprefixluanxieyitongsdsd1021, out withprefixluanxieyitongsdsd1022);
+                        }, () => {
+                            return check((withprefixluanxieyitongsdsd1022 < (10)));
+                        });
+                    }))();
+                });
+            }))(), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301010,51301014"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1023 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1023);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1023);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301010,500,51301014,100")), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301014"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1024 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1024);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1024);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301014,100")))))), seq_(wait_(seq_(new BehaviorNode_HpRateLessThan < T > ((0.8)), negate_(new BehaviorNode_HpRateLessThan < T > ((0.6))))), new BehaviorNode_SetNoBeAttack < T > (true), wait_(new BehaviorNode_IsIdle < T > ()), wait_(new BehaviorNode_CanUseSkillId < T > ((51301016))), new BehaviorNode_UseSkill < T > ((51301016)), new BehaviorNode_SetFaceAngleY < T > ((180)), new BehaviorNode_PlayAction < T > ((54300079)), sleep(ticks((8))), new BehaviorNode_ActiveTrigger < T > ("bossCall1"), sleep(ticks((40))), wait_(new BehaviorNode_CanUseSkillId < T > ((51301017))), new BehaviorNode_UseSkill < T > ((51301017)), sleep(ticks((8))), new BehaviorNode_Idle < T > (), new BehaviorNode_SetNoBeAttack < T > (false), when_forever_(seq_(new BehaviorNode_HpRateLessThan < T > ((0.8)), negate_(new BehaviorNode_HpRateLessThan < T > ((0.6)))), seq_(new BehaviorNode_HadLockTarget < T > (), behaviorIf_p1_p2_(((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1025 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1025);
+                }, () => {
+                    return ((Func < BaseNodeInterface > )(() => {
+                        double withprefixluanxieyitongsdsd1026 = 0d;
+                        return new With((ConstContext context) => {
+                            return ((T) context.HostObject).GetDistance(context, withprefixluanxieyitongsdsd1025, out withprefixluanxieyitongsdsd1026);
+                        }, () => {
+                            return check((withprefixluanxieyitongsdsd1026 < (10)));
+                        });
+                    }))();
+                });
+            }))(), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301010,51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1027 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1027);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1027);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301010,500,51301015,100")), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1028 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1028);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1028);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301015,100")))))), seq_(wait_(seq_(new BehaviorNode_HpRateLessThan < T > ((0.6)), negate_(new BehaviorNode_HpRateLessThan < T > ((0.5))))), new BehaviorNode_SetNoBeAttack < T > (true), wait_(new BehaviorNode_IsIdle < T > ()), new BehaviorNode_SetFaceAngleY < T > ((180)), wait_(new BehaviorNode_CanUseSkillId < T > ((51301016))), new BehaviorNode_UseSkill < T > ((51301016)), sleep(ticks((8))), new BehaviorNode_ActiveTrigger < T > ("bossCall2"), sleep(ticks((40))), wait_(new BehaviorNode_CanUseSkillId < T > ((51301017))), new BehaviorNode_UseSkill < T > ((51301017)), sleep(ticks((8))), new BehaviorNode_Idle < T > (), new BehaviorNode_SetNoBeAttack < T > (false), when_forever_(seq_(new BehaviorNode_HpRateLessThan < T > ((0.6)), negate_(new BehaviorNode_HpRateLessThan < T > ((0.5)))), seq_(new BehaviorNode_HadLockTarget < T > (), behaviorIf_p1_p2_(((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1029 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1029);
+                }, () => {
+                    return ((Func < BaseNodeInterface > )(() => {
+                        double withprefixluanxieyitongsdsd1030 = 0d;
+                        return new With((ConstContext context) => {
+                            return ((T) context.HostObject).GetDistance(context, withprefixluanxieyitongsdsd1029, out withprefixluanxieyitongsdsd1030);
+                        }, () => {
+                            return check((withprefixluanxieyitongsdsd1030 < (10)));
+                        });
+                    }))();
+                });
+            }))(), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301010,51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1031 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1031);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1031);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301010,500,51301015,100")), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1032 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1032);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1032);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301015,100")))))), seq_(wait_(seq_(new BehaviorNode_HpRateLessThan < T > ((0.5)), negate_(new BehaviorNode_HpRateLessThan < T > ((0.4))))), new BehaviorNode_SetNoBeAttack < T > (true), wait_(new BehaviorNode_IsIdle < T > ()), new BehaviorNode_SetFaceAngleY < T > ((180)), wait_(new BehaviorNode_CanUseSkillId < T > ((51301016))), new BehaviorNode_UseSkill < T > ((51301016)), sleep(ticks((8))), new BehaviorNode_ActiveTrigger < T > ("bossCall3"), sleep(ticks((40))), wait_(new BehaviorNode_CanUseSkillId < T > ((51301017))), new BehaviorNode_UseSkill < T > ((51301017)), sleep(ticks((8))), new BehaviorNode_SetNoBeAttack < T > (false), when_forever_(seq_(new BehaviorNode_HpRateLessThan < T > ((0.5)), negate_(new BehaviorNode_HpRateLessThan < T > ((0.4)))), seq_(new BehaviorNode_HadLockTarget < T > (), behaviorIf_p1_p2_(((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1033 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1033);
+                }, () => {
+                    return ((Func < BaseNodeInterface > )(() => {
+                        double withprefixluanxieyitongsdsd1034 = 0d;
+                        return new With((ConstContext context) => {
+                            return ((T) context.HostObject).GetDistance(context, withprefixluanxieyitongsdsd1033, out withprefixluanxieyitongsdsd1034);
+                        }, () => {
+                            return check((withprefixluanxieyitongsdsd1034 < (10)));
+                        });
+                    }))();
+                });
+            }))(), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301010,51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1035 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1035);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1035);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301010,500,51301015,100")), seq_(new BehaviorNode_CanUseSkillsByIdList < T > ("51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1036 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1036);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1036);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301015,100")))))), seq_(when_forever_(seq_(negate_(new BehaviorNode_HpRateLessThan < T > ((0))), new BehaviorNode_HpRateLessThanOrEqual < T > ((0.4))), seq_(new BehaviorNode_HadLockTarget < T > (), new BehaviorNode_CanUseSkillsByIdList < T > ("51301011,51301015"), ((Func < BaseNodeInterface > )(() => {
+                Object withprefixluanxieyitongsdsd1037 = null;
+                return new With((ConstContext context) => {
+                    return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1037);
+                }, () => {
+                    return new BehaviorNode_FaceTo < T > (withprefixluanxieyitongsdsd1037);
+                });
+            }))(), new BehaviorNode_RandomUseSkillByIdAndWeight < T > ("51301011,100,51301015,100")))));
+        }
+        public static BaseNodeInterface getTree() {
+            return tree;
+        }
+    }
+}
+
+seq_(
+	new BehaviorNode_HadLockTarget < T > ()
+  , new BehaviorNode_IsIdle < T > ()
+  , negate_(new BehaviorNode_IsNoBeAttack < T > ())
+  , ((Func < BaseNodeInterface > )(() => {
+		Object withprefixluanxieyitongsdsd1019 = null;
+		return new With(
+			(ConstContext context) => {return ((T) context.HostObject).GetLockTarget(context, out withprefixluanxieyitongsdsd1019);}
+		  , () => {
+				return ((Func < BaseNodeInterface > )(() => {
+					double withprefixluanxieyitongsdsd1020 = 0d;
+					return new With(
+						(ConstContext context) => {return ((T) context.HostObject).GetAngleYToTarget(context, withprefixluanxieyitongsdsd1019, out withprefixluanxieyitongsdsd1020);}
+					  , () => {return new BehaviorNode_SmoothFaceTo < T > (withprefixluanxieyitongsdsd1020, (15));});
+				}))();});
+    }
+))())

@@ -1,0 +1,16 @@
+(declare 
+	(seq :: (List IO Result -> IO Result))
+	(select :: (List IO Result -> IO Result))
+	(race :: (List IO Result -> IO Result))
+	(wait :: (IO Result -> IO Result))
+	(HpRateLessThan :: (Float -> IO Result))
+	(GetFleeBloodRate :: Float)
+	(CanMove :: IO Result)
+	(Flee :: IO Result)
+	(Speak :: IO Result))
+
+(define Root
+	(seq [(wait (seq [((\a (HpRateLessThan a)) GetFleeBloodRate)
+					 CanMove]))
+		  Flee
+		  Speak]))

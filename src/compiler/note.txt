@@ -1,0 +1,49 @@
+Root = (usePolicy : justSuccess par : 
+{
+	with withprefixluanxieyitongsdsd1006 <- #GetPos() in with withprefixluanxieyitongsdsd1007 <- #GetAngleY() in with withprefixluanxieyitongsdsd1008 <- #GetRandomPosInLine(withprefixluanxieyitongsdsd1006, withprefixluanxieyitongsdsd1007, 3, 5) in #MoveToPos(withprefixluanxieyitongsdsd1008, 0)
+})
+
+(declare 
+	(seq :: (List IO Result -> IO Result))
+	(select :: (List IO Result -> IO Result))
+	(race :: (List IO Result -> IO Result))
+	(wait :: (IO Result -> IO Result))
+	(HpRateLessThan :: (Float -> IO Result))
+	(GetFleeBloodRate :: Float)
+	(CanMove :: IO Result)
+	(Flee :: IO Result)
+	(Speak :: IO Result))
+
+(define Root
+	(seq [(wait (seq [((\a (HpRateLessThan a)) GetFleeBloodRate)
+					 CanMove]))
+		  Flee
+		  Speak]))
+
+		  
+(MoveToPos (GetRandomPosInLine a b 3 5) 0)
+
+(\a (\b (\c (\d (MoveToPos d 0)) (GetRandomPosInLine a b 3 5))))
+
+(\a (\b (\c (MoveToPos c 0) (GetRandomPosInLine a b 3 5)) GetAngleY) GetPos)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

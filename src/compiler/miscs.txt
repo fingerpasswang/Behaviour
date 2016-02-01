@@ -1,0 +1,15 @@
+new With < Object > (
+	"withprefixluanxieyitongsdsd1009"
+   , ((ConstContext _context, out Object _with_p) => {
+                return ((T) _context.HostObject).GetLockTarget(_context, out _with_p);})
+	, new BehaviorNode_IsInAttackRange < T > ((_GetValueByPara < Object > ("withprefixluanxieyitongsdsd1009"))))
+	
+
+var a = new SGBox<float>();
+
+return __With<float, __Result>.with(a, __help.apply(BaseAISets<T>.GetFleeBloodRate), __help.apply(Prelude<T>.check, __help.apply(BaseAISets<T>.HpRateLessThan, a)));
+                                      
+
+(gen) => __With<float, __Result>.with(a, __help.apply(BaseAISets<T>.GetFleeBloodRate), __help.apply(Prelude<T>.check, __help.apply(BaseAISets<T>.HpRateLessThan, a)))
+
+((box) => __With<float, __Result>.with(box, __help.apply(BaseAISets<T>.GetFleeBloodRate), __help.apply(Prelude<T>.check, __help.apply(BaseAISets<T>.HpRateLessThan, box))))(gen())

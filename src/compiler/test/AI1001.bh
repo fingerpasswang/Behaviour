@@ -1,0 +1,15 @@
+(import Prelude)
+(import BaseAI)
+
+(define Root
+	(par [(seq [(check IsFleeing)
+			   ((\a (check (IsNull a))) GetNearestTarget)])
+		  (seq [(check IsAttacking)
+			   ((\b (HpRateLessThan b)) GetFleeBloodRate)])
+		  (seq [(check IsNormal)
+			   (loop 
+					(par [((\c (seq [(check (IsNull c))
+									 (LockTarget c)])) GetNearestTarget)
+						  (seq [(seq [(check ReachCurrentPatrolPoint)
+									 MoveToNextPatrolPoiont])
+							   Idle])]))])]))
